@@ -90,3 +90,18 @@ resource "aws_eks_node_group" "main" {
   ]
 }
 
+resource "aws_eks_access_entry" "ec2_role" {
+  cluster_name      = var.cluster_name
+  principal_arn     = "arn:aws:iam::251478238545:role/EKS-Admin-EC2-Role"
+  type              = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "ec2" {
+  cluster_name  = var.cluster_name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = "arn:aws:iam::251478238545:role/EKS-Admin-EC2-Role"
+
+  access_scope {
+    type       = "cluster"
+  }
+}
