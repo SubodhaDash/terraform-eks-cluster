@@ -104,5 +104,18 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private[count.index].id
 }
 
+resource "aws_security_group" "bastion_sg" {
+  name        = "${var.cluster_name}-bastion-sg"
+  description = "Security group for bastion host"
+  vpc_id      = aws_vpc.main.id
 
+  ingress {
+    description      = "SSH from anywhere (for demo purposes, restrict in production)"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+    }
+}
 

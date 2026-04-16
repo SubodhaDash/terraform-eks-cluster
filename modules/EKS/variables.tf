@@ -30,3 +30,8 @@ variable "node_groups" {
     })
   }))
 }
+
+variable "bastion_role_arn" {
+  description = "ARN of the bastion role"
+  type        = string
+}

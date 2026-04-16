@@ -39,4 +39,23 @@ module "eks" {
   subnet_ids      = module.vpc.private_subnet_ids
   node_groups     = var.node_groups
   vpc_id          = module.vpc.vpc_id
+  bastion_role_arn = module.iam.bastion_role_arn
 }
+
+module "iam" {
+  source = "./modules/IAM"
+  cluster_name = var.cluster_name
+}
+
+# module "bastion" {
+#   source = "./modules/Bastion"
+
+#   bastion_ami_name            = var.bastion_ami_name
+#   bastion_instance_type       = var.bastion_instance_type
+#   bastion_subnet_id           = module.vpc.public_subnet_ids[0]
+#   bastion_sg_id               = module.vpc.bastion_sg_id
+#   cluster_name                = var.cluster_name
+#   bastion_instance_profile    = module.iam.bastion_instance_profile_arn
+#   key_pair_name               = var.bastion_key_pair_name
+#   repo_url                    = var.bastion_repo_url
+# }

@@ -14,7 +14,7 @@ resource "aws_iam_role" "cluster" {
         Principal = {
           Service = "eks.amazonaws.com"
         }
-      },
+      }
     ]
   })
 }
@@ -90,18 +90,22 @@ resource "aws_eks_node_group" "main" {
   ]
 }
 
-resource "aws_eks_access_entry" "ec2_role" {
+resource "aws_eks_access_entry" "bastion_role" {
   cluster_name      = var.cluster_name
-  principal_arn     = "arn:aws:iam::251478238545:role/EKS-Admin-EC2-Role"
+  principal_arn     = var.bastion_role_arn
   type              = "STANDARD"
+
+  depends_on = [ aws_eks_cluster.main ]
 }
 
-resource "aws_eks_access_policy_association" "ec2" {
+resource "aws_eks_access_policy_association" "bastion_role" {
   cluster_name  = var.cluster_name
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-  principal_arn = "arn:aws:iam::251478238545:role/EKS-Admin-EC2-Role"
+  principal_arn = var.bastion_role_arn
 
   access_scope {
     type       = "cluster"
   }
+
+  depends_on = [ aws_eks_cluster.main ]
 }

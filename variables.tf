@@ -65,3 +65,27 @@ variable "node_groups" {
   }
 
 }
+
+variable "bastion_ami_name" {
+  description = "Name of the AMI to use for the bastion host"
+  type = string
+  default = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20251022"
+}
+
+variable "bastion_instance_type" {
+  description = "Instance type for the bastion host"
+  type = string
+  default = "t3.large"
+}
+
+variable "bastion_key_pair_name" {
+  description = "Name of the key pair to use for the bastion host"
+  type = string
+  default = "devops-demo"
+}
+
+variable "bastion_repo_url" {
+  description = "URL of the Git repository to clone on the bastion host"
+  type = string
+  default = "git@github.com:SubodhaDash/opentelemery-demo-project.git"
+}
