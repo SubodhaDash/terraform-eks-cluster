@@ -57,7 +57,7 @@ variable "node_groups" {
       instance_types = ["t3.medium"]
       capacity_type  = "ON_DEMAND"
       scaling_config = {
-        desired_size = 2
+        desired_size = 3
         max_size     = 4
         min_size     = 1
       }
@@ -88,4 +88,16 @@ variable "bastion_repo_url" {
   description = "URL of the Git repository to clone on the bastion host"
   type = string
   default = "git@github.com:SubodhaDash/opentelemery-demo-project.git"
+}
+
+variable "service_account_name" {
+  description = "Name of the service account for ALB Controller "
+  type = string
+  default = "aws-load-balancer-controller"
+}
+
+variable "namespace" {
+  description = "Namespace of ALB Controller"
+  type = string
+  default = "kube-system"
 }

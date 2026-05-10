@@ -45,6 +45,9 @@ module "eks" {
 module "iam" {
   source = "./modules/IAM"
   cluster_name = var.cluster_name
+  oidc_issuer_url = module.eks.oidc_issuer_url
+  namespace = var.namespace
+  service_account_name = var.service_account_name
 }
 
 # module "bastion" {
