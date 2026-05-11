@@ -2,6 +2,12 @@
 resource "aws_iam_role" "cluster" {
   name = "${var.cluster_name}-cluster-role"
 
+  tags = {
+    Name      = "${var.cluster_name}-cluster-role"
+    ManagedBy = "Terraform"
+    Project   = "terraform-eks-cluster"
+  }
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -29,12 +35,28 @@ resource "aws_eks_cluster" "main" {
   version  = var.cluster_version
   role_arn = aws_iam_role.cluster.arn
 
+  # Modern EKS access management
   access_config {
     authentication_mode = "API"
   }
 
+  # Enable control plane logs for observability and auditing
+  enabled_cluster_log_types = [
+    "api",
+    "audit",
+    "authenticator"
+  ]
+
   vpc_config {
     subnet_ids = var.subnet_ids
+  }
+
+  # Resource tags for cost allocation and identification
+  tags = {
+    Name        = var.cluster_name
+    Environment = "dev"
+    ManagedBy   = "Terraform"
+    Project     = "terraform-eks-cluster"
   }
 
   depends_on = [
@@ -44,6 +66,12 @@ resource "aws_eks_cluster" "main" {
 
 resource "aws_iam_role" "node" {
   name = "${var.cluster_name}-node-role"
+
+  tags = {
+    Name      = "${var.cluster_name}-node-role"
+    ManagedBy = "Terraform"
+    Project   = "terraform-eks-cluster"
+  }
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -85,17 +113,30 @@ resource "aws_eks_node_group" "main" {
   instance_types = each.value.instance_types
   capacity_type  = each.value.capacity_type
 
+  # Safe rolling updates
+  update_config {
+    max_unavailable = 1
+  }
+
+  # Resource tags
+  tags = {
+    Name        = "${var.cluster_name}-${each.key}"
+    Environment = "dev"
+    ManagedBy   = "Terraform"
+    Project     = "terraform-eks-cluster"
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.node_policy,
   ]
 }
 
 resource "aws_eks_access_entry" "bastion_role" {
-  cluster_name      = var.cluster_name
-  principal_arn     = var.bastion_role_arn
-  type              = "STANDARD"
+  cluster_name  = var.cluster_name
+  principal_arn = var.bastion_role_arn
+  type          = "STANDARD"
 
-  depends_on = [ aws_eks_cluster.main ]
+  depends_on = [aws_eks_cluster.main]
 }
 
 resource "aws_eks_access_policy_association" "bastion_role" {
@@ -104,8 +145,8 @@ resource "aws_eks_access_policy_association" "bastion_role" {
   principal_arn = var.bastion_role_arn
 
   access_scope {
-    type       = "cluster"
+    type = "cluster"
   }
 
-  depends_on = [ aws_eks_cluster.main ]
+  depends_on = [aws_eks_cluster.main]
 }

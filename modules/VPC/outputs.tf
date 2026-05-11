@@ -13,7 +13,7 @@ output "public_subnet_ids" {
   value       = aws_subnet.public_subnet[*].id
 }
 
-output "bastion_sg_id" {
-  description = "Bastion SG Id"
-  value       = aws_security_group.bastion_sg.id
-}
+# output "bastion_sg_id" {
+#   description = "Bastion SG Id"
+#   value       = aws_security_group.bastion_sg.id
+# }

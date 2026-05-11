@@ -2,5 +2,7 @@ terraform.tfstate.backup
 terraform.tfstate
 .terraform
 .terraform.lock.hcl
-./modules/Bastion/*
+modules/Bastion/
 tfplan*
+terraform.tf
+backend.tf

@@ -1,0 +1,72 @@
+# -----------------------------------------------------------------------------
+# AWS Configuration
+# -----------------------------------------------------------------------------
+# AWS region where all resources will be created.
+# Default region used by this project: ap-south-2 (Hyderabad)
+region = "ap-south-2"
+
+# -----------------------------------------------------------------------------
+# EKS Cluster Configuration
+# -----------------------------------------------------------------------------
+# Name of the EKS cluster.
+cluster_name = "demo-eks-cluster"
+
+# Kubernetes version for the EKS control plane.
+kubernetes_version = "1.30"
+
+# -----------------------------------------------------------------------------
+# Node Group Configuration
+# -----------------------------------------------------------------------------
+# EC2 instance type for worker nodes.
+node_instance_type = "t3.medium"
+
+# Desired number of worker nodes.
+desired_size = 3
+
+# Minimum number of worker nodes.
+min_size = 1
+
+# Maximum number of worker nodes.
+max_size = 4
+
+# -----------------------------------------------------------------------------
+# Networking Configuration (Optional)
+# -----------------------------------------------------------------------------
+# Uncomment and modify if your project exposes these variables.
+# vpc_cidr = "10.0.0.0/16"
+
+# Public subnet CIDR blocks.
+# public_subnet_cidrs = [
+#   "10.0.1.0/24",
+#   "10.0.2.0/24",
+#   "10.0.3.0/24"
+# ]
+
+# Private subnet CIDR blocks.
+# private_subnet_cidrs = [
+#   "10.0.11.0/24",
+#   "10.0.12.0/24",
+#   "10.0.13.0/24"
+# ]
+
+# Use a single NAT Gateway to reduce AWS costs for lab and demo environments.
+enable_single_nat_gateway = true
+
+# -----------------------------------------------------------------------------
+# Tags (Optional)
+# -----------------------------------------------------------------------------
+# Uncomment if your project supports custom tags.
+# tags = {
+#   Environment = "dev"
+#   Project     = "terraform-eks-cluster"
+#   Owner       = "SubodhaDash"
+# }
+
+# -----------------------------------------------------------------------------
+# AWS Load Balancer Controller (IRSA)
+# -----------------------------------------------------------------------------
+# If your IAM module supports customization, you can expose and configure
+# the Kubernetes service account and namespace here.
+#
+# alb_controller_namespace       = "kube-system"
+# alb_controller_service_account = "aws-load-balancer-controller"
