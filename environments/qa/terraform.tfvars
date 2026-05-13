@@ -1,6 +1,6 @@
-cluster_name              = "qa-eks-cluster"
-region                    = "ap-south-2"
-cluster_version           = "1.30"
+cluster_name    = "qa-eks-cluster"
+region          = "ap-south-2"
+cluster_version = "1.30"
 
 enable_single_nat_gateway = true
 
