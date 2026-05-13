@@ -18,6 +18,9 @@ on:
                 - "qa"
                 - "prod"
             default: "dev"
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   terraform:
