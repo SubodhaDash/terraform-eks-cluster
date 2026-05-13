@@ -21,7 +21,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "./modules/VPC"
+  source = "./modules/vpc"
 
   cluster_name              = var.cluster_name
   availability_zones        = var.availability_zones
@@ -32,7 +32,7 @@ module "vpc" {
 }
 
 module "eks" {
-  source = "./modules/EKS"
+  source = "./modules/eks"
 
   cluster_name     = var.cluster_name
   cluster_version  = var.cluster_version
@@ -43,7 +43,7 @@ module "eks" {
 }
 
 module "iam" {
-  source               = "./modules/IAM"
+  source               = "./modules/iam"
   cluster_name         = var.cluster_name
   oidc_issuer_url      = module.eks.oidc_issuer_url
   namespace            = var.namespace
