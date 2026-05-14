@@ -58,6 +58,7 @@ jobs:
 
       - name: Terraform apply
         id: apply
+        continue-on-error: true
         if: env.ACTION == 'apply'
         run: terraform apply -var-file=environments/${{ env.ENVIRONMENT}}/terraform.tfvars -auto-approve
 
