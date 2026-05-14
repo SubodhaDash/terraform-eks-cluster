@@ -57,9 +57,10 @@ jobs:
         run: terraform plan -var-file=environments/${{ env.ENVIRONMENT}}/terraform.tfvars
 
       - name: Terraform apply
+        id: apply
         if: env.ACTION == 'apply'
         run: terraform apply -var-file=environments/${{ env.ENVIRONMENT}}/terraform.tfvars -auto-approve
 
       - name: Terraform destroy
-        if: env.ACTION == 'destroy'
+        if: env.ACTION == 'destroy' || steps.apply.outcome == 'failure'
         run: terraform destroy -var-file=environments/${{ env.ENVIRONMENT}}/terraform.tfvars -auto-approve
