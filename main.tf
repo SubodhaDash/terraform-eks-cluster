@@ -53,6 +53,11 @@ module "iam" {
   environment          = var.environment
 }
 
+# -----------------------------------------------------------------------------
+# Bastion Host Module (Future Enhancement)
+# Requires: key pair created in AWS, bastion variables set in tfvars
+# -----------------------------------------------------------------------------
+#
 # module "bastion" {
 #   source = "./modules/Bastion"
 

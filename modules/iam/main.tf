@@ -1,4 +1,8 @@
-# Bastion Host IAM Role policies and permissions
+# =============================================================================
+# Bastion Host IAM Role
+# Pre-provisioned to support optional Bastion module deployment.
+# The Bastion EC2 module is planned as a future enhancement.
+# =============================================================================
 resource "aws_iam_role" "bastion_role" {
   name = "${var.cluster_name}-bastion-role"
 
