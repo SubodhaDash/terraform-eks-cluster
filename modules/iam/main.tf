@@ -204,8 +204,7 @@ resource "aws_iam_role" "alb_controller_role" {
   })
 }
 
-resource "aws_iam_policy_attachment" "alb_attach" {
-  name       = "${var.cluster_name}-alb-controller-attachment"
+resource "aws_iam_role_policy_attachment" "alb_attach" {
   policy_arn = aws_iam_policy.alb_controller_policy.arn
-  roles      = [aws_iam_role.alb_controller_role.name]
+  role       = aws_iam_role.alb_controller_role.name
 }
