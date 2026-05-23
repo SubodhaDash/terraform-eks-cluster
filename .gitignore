@@ -5,4 +5,5 @@ terraform.tfstate
 modules/Bastion/
 tfplan*
 terraform.tf
+
 backend.tf
