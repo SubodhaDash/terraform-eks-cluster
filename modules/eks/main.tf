@@ -54,7 +54,7 @@ resource "aws_eks_cluster" "main" {
   # Resource tags for cost allocation and identification
   tags = {
     Name        = var.cluster_name
-    Environment = "dev"
+    Environment = var.environment
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
   }
@@ -121,7 +121,7 @@ resource "aws_eks_node_group" "main" {
   # Resource tags
   tags = {
     Name        = "${var.cluster_name}-${each.key}"
-    Environment = "dev"
+    Environment = var.environment
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
   }

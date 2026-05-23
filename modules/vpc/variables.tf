@@ -77,3 +77,9 @@ variable "enable_single_nat_gateway" {
   description = "Whether to create a single NAT Gateway instead of one per Availability Zone."
   type        = bool
 }
+
+variable "environment" {
+  description = "Deployment environment (dev, qa, prod)"
+  type        = string
+  default     = "dev"
+}

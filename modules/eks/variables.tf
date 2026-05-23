@@ -69,3 +69,9 @@ variable "bastion_role_arn" {
     error_message = "bastion_role_arn must be a valid AWS IAM role ARN."
   }
 }
+
+variable "environment" {
+  description = "Deployment environment (dev, qa, prod)"
+  type        = string
+  default     = "dev"
+}

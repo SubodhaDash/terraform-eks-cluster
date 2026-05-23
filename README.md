@@ -24,6 +24,30 @@ A production-ready Terraform project to provision an Amazon EKS cluster on AWS w
 
 ---
 
+## 🏛️ Architecture Diagram
+
+\```
+                          ┌─────────────────────────────────────┐
+                          │            AWS Cloud                │
+                          │                                     │
+                          │  ┌─────────────────────────────┐   │
+                          │  │           VPC               │   │
+                          │  │  ┌────────┐  ┌──────────┐   │   │
+Internet ─── IGW ────────────▶│  Public  │  │ Private  │   │   │
+                          │  │  Subnets │  │ Subnets  │   │   │
+                          │  │  (ALB)   │  │  (EKS)   │   │   │
+                          │  └────┬─────┘  └────┬─────┘   │   │
+                          │       │ NAT GW       │         │   │
+                          │       └──────────────┘         │   │
+                          │              │                  │   │
+                          │       ┌──────▼──────┐           │   │
+                          │       │ EKS Cluster │           │   │
+                          │       │  Node Group │           │   │
+                          │       └─────────────┘           │   │
+                          │  S3 (State) + DynamoDB (Lock)   │   │
+                          └─────────────────────────────────────┘
+\```
+
 ## 🏗️ Architecture Overview
 
 This project provisions the following AWS resources:
@@ -267,24 +291,15 @@ Check:
 
 ---
 
-## 📈 Resume Highlights
-
-- Developed a modular Terraform framework to provision production-ready Amazon EKS clusters.
-- Implemented custom VPC networking with public/private subnets and NAT Gateway.
-- Configured IAM roles, OIDC provider, and IRSA for AWS Load Balancer Controller.
-- Enabled remote state management using S3 and DynamoDB.
-
----
+## ✅ What's Already Implemented
+- GitHub Actions CI/CD with separate validate and operations workflows
+- Multi-environment support (dev, qa, prod) with isolated backends and tfvars
 
 ## 🔮 Future Enhancements
-
-- GitHub Actions for automated Terraform validation
 - Bastion host using AWS Systems Manager Session Manager
 - Cluster Autoscaler
 - Metrics Server
 - Monitoring with Prometheus and Grafana
-- Multi-environment support (dev, qa, prod)
-
 ---
 
 ## 👨‍💻 Author

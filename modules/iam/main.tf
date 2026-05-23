@@ -1,4 +1,8 @@
-# Bastion Host IAM Role policies and permissions
+# =============================================================================
+# Bastion Host IAM Role
+# Pre-provisioned to support optional Bastion module deployment.
+# The Bastion EC2 module is planned as a future enhancement.
+# =============================================================================
 resource "aws_iam_role" "bastion_role" {
   name = "${var.cluster_name}-bastion-role"
 
@@ -6,7 +10,7 @@ resource "aws_iam_role" "bastion_role" {
     Name        = "${var.cluster_name}-bastion-role"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 
   assume_role_policy = jsonencode({
@@ -35,7 +39,7 @@ resource "aws_iam_policy" "bastion_eks_access" {
     Name        = "${var.cluster_name}-bastion-eks-access-policy"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 
   policy = jsonencode({
@@ -133,7 +137,7 @@ resource "aws_iam_instance_profile" "bastion_instance_profile" {
     Name        = "${var.cluster_name}-bastion-instance-profile"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 # ##############################################################################################
@@ -157,7 +161,7 @@ resource "aws_iam_openid_connect_provider" "eks" {
     Name        = "${var.cluster_name}-oidc-provider"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 
@@ -168,7 +172,7 @@ resource "aws_iam_policy" "alb_controller_policy" {
     Name        = "${var.cluster_name}-alb-controller-policy"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 
   policy = file("${path.module}/policies/alb-controller-policy.json")
@@ -181,7 +185,7 @@ resource "aws_iam_role" "alb_controller_role" {
     Name        = "${var.cluster_name}-alb-controller-role"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 
   assume_role_policy = jsonencode({

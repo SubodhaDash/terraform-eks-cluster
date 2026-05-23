@@ -1,6 +1,7 @@
 cluster_name    = "prod-eks-cluster"
 region          = "ap-south-2"
 cluster_version = "1.30"
+environment     = "prod"
 
 enable_single_nat_gateway = false
 

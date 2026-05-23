@@ -1,6 +1,7 @@
 cluster_name    = "dev-eks-cluster"
 region          = "ap-south-2"
 cluster_version = "1.30"
+environment     = "dev"
 
 enable_single_nat_gateway = true
 
