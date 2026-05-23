@@ -29,6 +29,7 @@ module "vpc" {
   private_subnet_cidrs      = var.private_subnet_cidrs
   vpc_cidr                  = var.vpc_cidr
   enable_single_nat_gateway = var.enable_single_nat_gateway
+  environment               = var.environment
 }
 
 module "eks" {
@@ -40,6 +41,7 @@ module "eks" {
   node_groups      = var.node_groups
   vpc_id           = module.vpc.vpc_id
   bastion_role_arn = module.iam.bastion_role_arn
+  environment      = var.environment
 }
 
 module "iam" {
@@ -48,6 +50,7 @@ module "iam" {
   oidc_issuer_url      = module.eks.oidc_issuer_url
   namespace            = var.namespace
   service_account_name = var.service_account_name
+  environment          = var.environment
 }
 
 # module "bastion" {
@@ -61,4 +64,5 @@ module "iam" {
 #   bastion_instance_profile    = module.iam.bastion_instance_profile_arn
 #   key_pair_name               = var.bastion_key_pair_name
 #   repo_url                    = var.bastion_repo_url
+#   environment                 = var.environment
 # }

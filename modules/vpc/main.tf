@@ -74,7 +74,7 @@ resource "aws_eip" "nat" {
     Name        = "${var.cluster_name}-nat-${count.index + 1}"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 
@@ -90,7 +90,7 @@ resource "aws_nat_gateway" "main" {
     Name        = "${var.cluster_name}-nat-${count.index + 1}"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 
@@ -108,7 +108,7 @@ resource "aws_route_table" "private" {
     Name        = "${var.cluster_name}-private-${count.index + 1}"
     ManagedBy   = "Terraform"
     Project     = "terraform-eks-cluster"
-    Environment = "dev"
+    Environment = var.environment
   }
 }
 
@@ -145,7 +145,7 @@ resource "aws_route_table_association" "private" {
 #     Name        = "${var.cluster_name}-bastion-sg"
 #     ManagedBy   = "Terraform"
 #     Project     = "terraform-eks-cluster"
-#     Environment = "dev"
+#     Environment = var.environment
 #   }
 # }
 

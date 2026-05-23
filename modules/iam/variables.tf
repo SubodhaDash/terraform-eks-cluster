@@ -48,3 +48,9 @@ variable "service_account_name" {
     error_message = "service_account_name cannot be empty."
   }
 }
+
+variable "environment" {
+  description = "Deployment environment (dev, qa, prod)"
+  type        = string
+  default     = "dev"
+}
